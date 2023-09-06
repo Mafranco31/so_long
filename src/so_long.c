@@ -51,10 +51,15 @@ int	main(int argc, char **argv)
 	w1.path = ft_strdup(argv[1]);
 	if (initdata(&w1) == 1)
 		return (0);
-	if (checkmap(&w1) == 1)
-		return (0);
+	//if (checkmap(&w1) == 1)
+	//	return (0);
 	if (initmap(&w1, 0, 0) == 1)
 		return (0);
+	w1.win = mlx_new_window(w1.mlx, w1.lenght * 45, w1.width * 45, "./so_long");
+	if (w1.win == NULL)
+		return (endbefore(&w1, "CREATING WINDOW FAILED"));
+	if (makeimg(&w1) == 1)
+		return (end(&w1, "CREATING IMAGES FAILED", 1));
 	mlx_key_hook(w1.win, presskey, &w1);
 	mlx_expose_hook(w1.win, expose, &w1);
 	mlx_hook(w1.win, 17, 1L<<17, mouseget, &w1);

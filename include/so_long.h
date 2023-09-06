@@ -53,4 +53,10 @@ void	freeall(char **table, int i);
 
 char	**create1tab(t_data *w1);
 
+int	checkpath(t_data *w1, int y, int x, int i);
+
+int	makeimg(t_data *w1);
+
+int	endbefore(t_data *w1, char *str);
+
 #endif

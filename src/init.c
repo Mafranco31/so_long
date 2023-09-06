@@ -48,7 +48,7 @@ static int	checkimg(t_data *w1)
 	return (0);
 }
 
-void	makeimg(t_data *w1)
+int	makeimg(t_data *w1)
 {
 	w1->img.h = 45;
 	w1->img.w = 45;
@@ -62,6 +62,7 @@ void	makeimg(t_data *w1)
 	w1->img.kennel = mlx_xpm_file_to_image(w1->mlx, w1->img.pathkennel, &(w1->img.h), &(w1->img.w));
 	w1->img.hotdog = mlx_xpm_file_to_image(w1->mlx, w1->img.pathhotdog, &(w1->img.h), &(w1->img.w));
 	w1->img.fence = mlx_xpm_file_to_image(w1->mlx, w1->img.pathfence, &(w1->img.h), &(w1->img.w));
+	return (checkimg(w1));
 }
 
 int	initdata(t_data *w1)
@@ -70,17 +71,15 @@ int	initdata(t_data *w1)
 
 	fd = open(w1->path, O_RDONLY);
 	if (fd == -1)
-		return (end(w1, "READ OF MAP FAILED", 1));
+		return (endbefore(w1, "READ OF MAP FAILED"));
 	w1->table = maketable(w1, 0, fd);
 	close(fd);
 	if (w1->table == NULL)
-		return (end(w1, "MALLOC FAILED", 1));
+		return (endbefore(w1, "MALLOC FAILED"));
+	if (checkmap(w1) == 1)
+		return (1);
+	if (checkpath(w1, 1, 0, 0) == 1)
+		return (endbefore(w1, "MAP NEEDS A VALID WAY TO WIN"));
 	w1->mlx = mlx_init();
-	w1->win = mlx_new_window(w1->mlx, (w1->lenght * 45), (w1->width * 45), "./so_long");
-	if (w1->win == NULL)
-		return (end(w1, "CREATING WINDOW FAILED", 1));
-	makeimg(w1);
-	if (checkimg(w1) == 1)
-		return (end(w1, "CREATING IMAGE FAILED", 1));
 	return (0);
 }

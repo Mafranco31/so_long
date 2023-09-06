@@ -1,5 +1,13 @@
 #include "../include/so_long.h"
 
+int	endbefore(t_data *w1, char *str)
+{
+	freeall(w1->table, w1->width);
+	free(w1->path);
+	ft_printf("Error\n%s", str);
+	return (1);
+}
+
 int	end(t_data *w1, char *str, int i)
 {
 	mlx_destroy_image(w1->mlx, w1->img.dog);

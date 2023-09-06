@@ -76,16 +76,14 @@ static int	checklen(char **table)
 			return (1);
 		j++;
 	}
-	if (j >= i)
-		return (1);
 	return (0);
 }
 
 int	checkmap(t_data *w1)
 {
 	if (checklen(w1->table) == 1)
-		return (end(w1, "MAP IS NOT RECTANGULAR", 1));
+		return (endbefore(w1, "MAP IS NOT RECTANGULAR"));
 	if (checkborder(w1, w1->table) == 1)
-		return (end(w1, "MAP SHOULD HAVE FENCE IN BORDERS", 1));
+		return (endbefore(w1, "MAP SHOULD HAVE FENCE IN BORDERS"));
 	return (0);
 }
