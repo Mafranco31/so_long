@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checkmap.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 14:57:18 by mafranco          #+#    #+#             */
+/*   Updated: 2023/09/11 14:57:20 by mafranco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 char	**create1tab(t_data *w1)
@@ -5,7 +17,7 @@ char	**create1tab(t_data *w1)
 	char	**table;
 	char	*buf;
 	char	*line;
-	int	fd;
+	int		fd;
 
 	fd = open(w1->path, O_RDONLY);
 	if (fd == -1)
@@ -85,5 +97,5 @@ int	checkmap(t_data *w1)
 		return (endbefore(w1, "MAP IS NOT RECTANGULAR"));
 	if (checkborder(w1, w1->table) == 1)
 		return (endbefore(w1, "MAP SHOULD HAVE FENCE IN BORDERS"));
-	return (0);
+	return (initmap(w1, 0, 0));
 }

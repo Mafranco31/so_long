@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 14:57:31 by mafranco          #+#    #+#             */
+/*   Updated: 2023/09/11 14:57:32 by mafranco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 void	freeall(char **table, int i)
@@ -7,7 +19,7 @@ void	freeall(char **table, int i)
 		free(table[i]);
 		i--;
 	}	
-	free(table);	
+	free(table);
 }
 
 static char	**maketable(t_data *w1, int i, int fd)
@@ -57,11 +69,16 @@ int	makeimg(t_data *w1)
 	w1->img.pathkennel = "./xpmfiles/kennel.xpm";
 	w1->img.pathhotdog = "./xpmfiles/hotdog.xpm";
 	w1->img.pathfence = "./xpmfiles/fence.xpm";
-	w1->img.dog = mlx_xpm_file_to_image(w1->mlx, w1->img.pathdog, &(w1->img.h), &(w1->img.w));
-	w1->img.grass = mlx_xpm_file_to_image(w1->mlx, w1->img.pathgrass, &(w1->img.h), &(w1->img.w));
-	w1->img.kennel = mlx_xpm_file_to_image(w1->mlx, w1->img.pathkennel, &(w1->img.h), &(w1->img.w));
-	w1->img.hotdog = mlx_xpm_file_to_image(w1->mlx, w1->img.pathhotdog, &(w1->img.h), &(w1->img.w));
-	w1->img.fence = mlx_xpm_file_to_image(w1->mlx, w1->img.pathfence, &(w1->img.h), &(w1->img.w));
+	w1->img.dog = mlx_xpm_file_to_image(w1->mlx,
+			w1->img.pathdog, &(w1->img.h), &(w1->img.w));
+	w1->img.grass = mlx_xpm_file_to_image(w1->mlx,
+			w1->img.pathgrass, &(w1->img.h), &(w1->img.w));
+	w1->img.kennel = mlx_xpm_file_to_image(w1->mlx,
+			w1->img.pathkennel, &(w1->img.h), &(w1->img.w));
+	w1->img.hotdog = mlx_xpm_file_to_image(w1->mlx,
+			w1->img.pathhotdog, &(w1->img.h), &(w1->img.w));
+	w1->img.fence = mlx_xpm_file_to_image(w1->mlx,
+			w1->img.pathfence, &(w1->img.h), &(w1->img.w));
 	return (checkimg(w1));
 }
 

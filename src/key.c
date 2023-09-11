@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 14:57:36 by mafranco          #+#    #+#             */
+/*   Updated: 2023/09/11 14:57:38 by mafranco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 int	endbefore(t_data *w1, char *str)
@@ -27,9 +39,8 @@ int	end(t_data *w1, char *str, int i)
 	return (0);
 }
 
-static int	moovedog(t_data *w1, int dx, int dy)
+static int	moovedog(t_data *w1, int dx, int dy, int x)
 {
-	int	x;
 	int	y;
 
 	x = w1->img.dogx + dx;
@@ -45,7 +56,8 @@ static int	moovedog(t_data *w1, int dx, int dy)
 		else
 			return (1);
 	}
-	mlx_put_image_to_window(w1->mlx, w1->win, w1->img.grass, w1->img.dogx * 45, w1->img.dogy * 45);
+	mlx_put_image_to_window(w1->mlx, w1->win,
+		w1->img.grass, w1->img.dogx * 45, w1->img.dogy * 45);
 	mlx_put_image_to_window(w1->mlx, w1->win, w1->img.dog, x * 45, y * 45);
 	w1->table[y][x] = 'P';
 	w1->table[w1->img.dogy][w1->img.dogx] = '0';
@@ -64,13 +76,13 @@ int	presskey(int kcode, t_data *w1)
 	if (kcode == 65307)
 		return (end(w1, "ECHAP PRESSED = END OF GAME", 0));
 	else if (kcode == 119)
-		i += moovedog(w1, 0, -1);
+		i += moovedog(w1, 0, -1, 0);
 	else if (kcode == 97)
-		i += moovedog(w1, -1, 0);
+		i += moovedog(w1, -1, 0, 0);
 	else if (kcode == 115)
-		i += moovedog(w1, 0, 1);
+		i += moovedog(w1, 0, 1, 0);
 	else if (kcode == 100)
-		i += moovedog(w1, 1, 0);
+		i += moovedog(w1, 1, 0, 0);
 	else
 		ft_printf("PRESS W.A.S.D TO PLAY\n");
 	if (i == 1)

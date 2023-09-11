@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   createmap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 14:57:27 by mafranco          #+#    #+#             */
+/*   Updated: 2023/09/11 14:57:28 by mafranco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 static	int	checkconst(t_data *w1, int nbE, int nbP)
@@ -29,7 +41,8 @@ int	initmap(t_data *w1, int k, int l)
 			else if (w1->table[i][j] == 'P')
 				l++;
 			else if (w1->table[i][j] != '0' && w1->table[i][j] != '1')
-				return (endbefore(w1, "YOU ONLY CAN PUT 0 / 1 / C / E / P IN YOUR MAP"));
+				return (endbefore(w1,
+						"YOU ONLY CAN PUT 0 / 1 / C / E / P IN YOUR MAP"));
 			j++;
 		}
 		i++;

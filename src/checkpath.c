@@ -1,40 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checkpath.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 14:57:23 by mafranco          #+#    #+#             */
+/*   Updated: 2023/09/11 14:57:24 by mafranco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
-static int	checkgetE(char **table, int y, int x, int dx, int dy)
+static int	checkgete(char **table, int y, int x, t_data *w1)
 {
+	int	dx;
+	int	dy;
+
+	dx = w1->img.dogx;
+	dy = w1->img.dogy;
 	table[y][x] = '1';
 	if (x == dx && y == dy)
 		return (0);
 	if (table[y + 1][x] != '1')
-		if (checkgetE(table, y + 1, x, dx, dy) == 0)
+		if (checkgete(table, y + 1, x, w1) == 0)
 			return (0);
 	if (table[y - 1][x] != '1')
-		if (checkgetE(table, y - 1, x, dx, dy) == 0)
+		if (checkgete(table, y - 1, x, w1) == 0)
 			return (0);
 	if (table[y][x + 1] != '1')
-		if (checkgetE(table, y, x + 1, dx, dy) == 0)
+		if (checkgete(table, y, x + 1, w1) == 0)
 			return (0);
 	if (table[y][x - 1] != '1')
-		if (checkgetE(table, y, x - 1, dx, dy) == 0)
+		if (checkgete(table, y, x - 1, w1) == 0)
 			return (0);
 	return (1);
 }
-static int	checkgetC(char **table, int y, int x, int dx, int dy)
+
+static int	checkgetc(char **table, int y, int x, t_data *w1)
 {
+	int	dx;
+	int	dy;
+
+	dx = w1->img.dogx;
+	dy = w1->img.dogy;
 	table[y][x] = '1';
 	if (x == dx && y == dy)
 		return (0);
 	if (table[y + 1][x] != '1' && table[y + 1][x] != 'E')
-		if (checkgetC(table, y + 1, x, dx, dy) == 0)
-			return (0);	
+		if (checkgetc(table, y + 1, x, w1) == 0)
+			return (0);
 	if (table[y - 1][x] != '1' && table[y + 1][x] != 'E')
-		if (checkgetC(table, y - 1, x, dx, dy) == 0)
+		if (checkgetc(table, y - 1, x, w1) == 0)
 			return (0);
 	if (table[y][x + 1] != '1' && table[y][x + 1] != 'E')
-		if (checkgetC(table, y, x + 1, dx, dy) == 0)
+		if (checkgetc(table, y, x + 1, w1) == 0)
 			return (0);
 	if (table[y][x - 1] != '1' && table[y][x - 1] != 'E')
-		if (checkgetC(table, y, x - 1, dx, dy) == 0)
+		if (checkgetc(table, y, x - 1, w1) == 0)
 			return (0);
 	return (1);
 }
@@ -76,9 +99,9 @@ int	checkpath(t_data *w1, int y, int x, int i)
 			{
 				copy = create1tab(w1);
 				if (w1->table[y][x] == 'C')
-					i = checkgetC(copy, y, x, w1->img.dogx, w1->img.dogy);
+					i = checkgetc(copy, y, x, w1);
 				else if (w1->table[y][x] == 'E')
-					i = checkgetE(copy, y, x, w1->img.dogx, w1->img.dogy);
+					i = checkgete(copy, y, x, w1);
 				freeall(copy, w1->width);
 				if (i == 1)
 					return (1);

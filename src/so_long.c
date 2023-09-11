@@ -1,15 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/11 14:57:41 by mafranco          #+#    #+#             */
+/*   Updated: 2023/09/11 14:57:42 by mafranco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 static void	putimg2(t_data *w1, char c, int y, int x)
 {
 	if (c == '0')
-		mlx_put_image_to_window(w1->mlx, w1->win, w1->img.grass, x * 45, y * 45);
+		mlx_put_image_to_window(w1->mlx, w1->win,
+			w1->img.grass, x * 45, y * 45);
 	if (c == '1')
-		mlx_put_image_to_window(w1->mlx, w1->win, w1->img.fence, x * 45, y * 45);
+		mlx_put_image_to_window(w1->mlx, w1->win,
+			w1->img.fence, x * 45, y * 45);
 	if (c == 'C')
-		mlx_put_image_to_window(w1->mlx, w1->win, w1->img.hotdog, x * 45, y * 45);
+		mlx_put_image_to_window(w1->mlx, w1->win,
+			w1->img.hotdog, x * 45, y * 45);
 	if (c == 'E')
-		mlx_put_image_to_window(w1->mlx, w1->win, w1->img.kennel, x * 45, y * 45);
+		mlx_put_image_to_window(w1->mlx, w1->win,
+			w1->img.kennel, x * 45, y * 45);
 	if (c == 'P')
 		mlx_put_image_to_window(w1->mlx, w1->win, w1->img.dog, x * 45, y * 45);
 }
@@ -39,21 +55,35 @@ int	mouseget(t_data *w1)
 	return (0);
 }
 
+static int	checkarg(int argc, char **argv)
+{
+	char	*str;
+
+	if (argc != 2)
+	{
+		ft_printf("Error\nTHIS PROGRAM NEEDS 1 PATH FOR MAP,");
+		ft_printf(" AND NO MORE THAM 1 ARGUMENT");
+		return (1);
+	}
+	str = ft_substr(argv[1], ft_strlen(argv[1]) - 4, 4);
+	if (ft_strncmp(str, ".ber", 4) != 0)
+	{
+		free(str);
+		ft_printf("Error\nTHIS PROGRAM NEEDS A .BER MAP\n");
+		return (1);
+	}
+	free(str);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	w1;
 
-	if (argc != 2)
-	{
-		printf("Error\nTHIS PROGRAM NEEDS 1 PATH FOR MAP, AND NO MORE THAN 1 ARGUMENT");
+	if (checkarg(argc, argv) == 1)
 		return (0);
-	}
 	w1.path = ft_strdup(argv[1]);
 	if (initdata(&w1) == 1)
-		return (0);
-	//if (checkmap(&w1) == 1)
-	//	return (0);
-	if (initmap(&w1, 0, 0) == 1)
 		return (0);
 	w1.win = mlx_new_window(w1.mlx, w1.lenght * 45, w1.width * 45, "./so_long");
 	if (w1.win == NULL)
@@ -62,6 +92,6 @@ int	main(int argc, char **argv)
 		return (end(&w1, "CREATING IMAGES FAILED", 1));
 	mlx_key_hook(w1.win, presskey, &w1);
 	mlx_expose_hook(w1.win, expose, &w1);
-	mlx_hook(w1.win, 17, 1L<<17, mouseget, &w1);
+	mlx_hook(w1.win, 17, 1L << 17, mouseget, &w1);
 	mlx_loop(w1.mlx);
 }
