@@ -6,7 +6,7 @@
 #    By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 15:02:38 by mafranco          #+#    #+#              #
-#    Updated: 2023/09/11 15:02:40 by mafranco         ###   ########.fr        #
+#    Updated: 2023/09/14 11:28:26 by mafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,19 +18,16 @@ LIBMLX_PATH	=	/Users/mathis/mlx/
 LIBFT_PATH	=	./libft/
 LIBPF_PATH	=	./ftprintf/
 
-LIBMLX	=	libmlx.a
 LIBFT	=	libft.a
 LIBPF	=	libftprintf.a
 
 LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT))
 LIBPF_LIB	=	$(addprefix $(LIBPF_PATH), $(LIBPF))
-LIBMLX_LIB	=	$(addprefix $(LIBMLX_PATH), $(LIBMLX))
 
 SRC_DIR	=	src
 SRC	=	$(wildcard $(SRC_DIR)/*.c)
 
-MLX_FLAG	=	-lX11 -lXext
-MLX_EX	=	$(LIBMLX_LIB) $(MLX_FLAG)
+MLX_FLAG	=	-lmlx -lX11 -lXext
 
 CC	=	cc
 
@@ -54,10 +51,7 @@ all: $(NAME)
 lib:
 	@make -C $(LIBFT_PATH)
 
-mlx:
-	@make -C $(LIBMLX_PATH)
-
-$(NAME):: lib mlx $(OBJ) $(OBJ_DIR)
+$(NAME):: lib $(OBJ) $(OBJ_DIR)
 
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_EX) $(LIBFT_LIB) $(LIBPF_LIB) -o $(NAME)
 	@mv $(SRC_DIR)/*.o $(OBJ_DIR)
