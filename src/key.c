@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:36 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/11 14:57:38 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:02:31 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	presskey(int kcode, t_data *w1)
 		w1->moove++;
 		ft_printf("%d\n", w1->moove);
 		end(w1, "YOU WIN !", 0);
+		exit(0);
 	}
 	return (0);
 }
