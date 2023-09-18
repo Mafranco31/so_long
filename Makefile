@@ -6,7 +6,7 @@
 #    By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 15:02:38 by mafranco          #+#    #+#              #
-#    Updated: 2023/09/14 11:28:26 by mafranco         ###   ########.fr        #
+#    Updated: 2023/09/18 12:14:00 by mafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,20 +14,24 @@ NAME	=	so_long
 
 LIB	=	include/so_long.h
 
-LIBMLX_PATH	=	/Users/mathis/mlx/
+LIBMLX_PATH	=	./mlx/
 LIBFT_PATH	=	./libft/
 LIBPF_PATH	=	./ftprintf/
 
 LIBFT	=	libft.a
 LIBPF	=	libftprintf.a
+LIBMLX	=	libmlx.a
 
 LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT))
 LIBPF_LIB	=	$(addprefix $(LIBPF_PATH), $(LIBPF))
+LIBMLX_LIB	=	$(addprefix $(LIBMLX_PATH), $(LIBMLX))
 
 SRC_DIR	=	src
 SRC	=	$(wildcard $(SRC_DIR)/*.c)
 
 MLX_FLAG	=	-lmlx -lX11 -lXext
+
+MLX_EX	=	$(MLX_LIB) $(MLX_FLAG)
 
 CC	=	cc
 
@@ -48,12 +52,15 @@ RESET	=	\033[0m
 
 all: $(NAME)
 
+mlx:
+	@make -C $(LIBMLX_PATH)
+
 lib:
 	@make -C $(LIBFT_PATH)
 
-$(NAME):: lib $(OBJ) $(OBJ_DIR)
+$(NAME):: lib mlx $(OBJ) $(OBJ_DIR)
 
-	@$(CC) $(CFLAGS) $(OBJ) $(MLX_EX) $(LIBFT_LIB) $(LIBPF_LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAG) $(LIBFT_LIB) $(LIBPF_LIB) -o $(NAME)
 	@mv $(SRC_DIR)/*.o $(OBJ_DIR)
 
 $(NAME)::
