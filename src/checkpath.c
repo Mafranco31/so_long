@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:23 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/11 14:57:24 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:32:36 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	checkgetc(char **table, int y, int x, t_data *w1)
 	if (table[y + 1][x] != '1' && table[y + 1][x] != 'E')
 		if (checkgetc(table, y + 1, x, w1) == 0)
 			return (0);
-	if (table[y - 1][x] != '1' && table[y + 1][x] != 'E')
+	if (table[y - 1][x] != '1' && table[y - 1][x] != 'E')
 		if (checkgetc(table, y - 1, x, w1) == 0)
 			return (0);
 	if (table[y][x + 1] != '1' && table[y][x + 1] != 'E')

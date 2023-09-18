@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:55:46 by mafranco          #+#    #+#             */
-/*   Updated: 2023/05/31 16:30:07 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:33:14 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -64,7 +64,7 @@ char	*ft_strdup(const char *s);
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 

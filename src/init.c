@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:31 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/11 14:57:32 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:29:52 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	freeall(char **table, int i)
 {
-	while (table[i])
+	while (i >= 0)
 	{
 		free(table[i]);
 		i--;
@@ -22,32 +22,33 @@ void	freeall(char **table, int i)
 	free(table);
 }
 
-static char	**maketable(t_data *w1, int i, int fd)
+static int	maketable(t_data *w1, int fd)
 {
-	char	**table;
 	char	*buf;
 	char	*line;
+	char	*buf2;
+	int		i;
 
+	i = 0;
 	buf = get_next_line(fd);
 	w1->lenght = ft_strlen(buf) - 1;
 	line = NULL;
+	buf2 = NULL;
 	while (buf)
 	{
 		i++;
-		line = ft_strjoin(line, buf);
-		if (line == NULL)
-		{
-			free(line);
-			return (NULL);
-		}
+		buf2 = ft_strdup(line);
+		free(line);
+		line = ft_strjoin(buf2, buf);
 		free(buf);
+		free(buf2);
+		if (line == NULL)
+			return (0);
 		buf = get_next_line(fd);
 	}
-	table = ft_split(line, '\n');
-	w1->width = i;
-	w1->count = 0;
-	w1->moove = 0;
-	return (table);
+	w1->table = ft_split(line, '\n');
+	free(line);
+	return (i);
 }
 
 static int	checkimg(t_data *w1)
@@ -88,9 +89,17 @@ int	initdata(t_data *w1)
 
 	fd = open(w1->path, O_RDONLY);
 	if (fd == -1)
-		return (endbefore(w1, "READ OF MAP FAILED"));
-	w1->table = maketable(w1, 0, fd);
+	{
+		ft_printf("Error\nOPENING FILE FAILED");
+		return (0);
+	}
+	w1->width = maketable(w1, fd);
 	close(fd);
+	if (w1->width == 0)
+		return (0);
+	close(fd);
+	w1->count = 0;
+	w1->moove = 0;
 	if (w1->table == NULL)
 		return (endbefore(w1, "MALLOC FAILED"));
 	if (checkmap(w1) == 1)

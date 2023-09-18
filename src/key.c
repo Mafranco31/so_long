@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:36 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/18 18:02:31 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:23:34 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	endbefore(t_data *w1, char *str)
 {
 	freeall(w1->table, w1->width);
 	free(w1->path);
-	ft_printf("Error\n%s", str);
+	ft_printf("Error\n%s\n", str);
 	return (1);
 }
 
@@ -68,14 +68,20 @@ static int	moovedog(t_data *w1, int dx, int dy, int x)
 	return (0);
 }
 
+static void	echappressed(t_data *w1)
+{
+	end(w1, "ECHAP PRESSED = END OF GAME", 0);
+	exit(0);
+}
+
 int	presskey(int kcode, t_data *w1)
 {
 	int	i;
 
 	i = 0;
 	if (kcode == 65307)
-		return (end(w1, "ECHAP PRESSED = END OF GAME", 0));
-	else if (kcode == 119)
+		echappressed(w1);
+	if (kcode == 119)
 		i += moovedog(w1, 0, -1, 0);
 	else if (kcode == 97)
 		i += moovedog(w1, -1, 0, 0);

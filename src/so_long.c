@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:41 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/11 14:57:42 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:57:14 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	expose(t_data *w1)
 int	mouseget(t_data *w1)
 {
 	end(w1, "WINDOW EXIT", 0);
-	return (0);
+	exit(0);
 }
 
 static int	checkarg(int argc, char **argv)

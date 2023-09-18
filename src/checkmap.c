@@ -6,37 +6,47 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:18 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/11 14:57:20 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:49:41 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-char	**create1tab(t_data *w1)
+static	char	**maketable2(char **table, int fd)
 {
-	char	**table;
-	char	*buf;
+	char	*buf2;
 	char	*line;
-	int		fd;
+	char	*buf;
 
-	fd = open(w1->path, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	buf = get_next_line(fd);
+	buf2 = NULL;
 	line = NULL;
+	buf = get_next_line(fd);
 	while (buf)
 	{
-		line = ft_strjoin(line, buf);
-		if (line == NULL)
-		{
-			free(line);
-			close(fd);
-			return (NULL);
-		}
+		buf2 = ft_strdup(line);
+		free(line);
+		line = ft_strjoin(buf2, buf);
 		free(buf);
+		free(buf2);
+		if (line == NULL)
+			return (NULL);
 		buf = get_next_line(fd);
 	}
 	table = ft_split(line, '\n');
+	free(line);
+	return (table);
+}
+
+char	**create1tab(t_data *w1)
+{
+	char	**table;
+	int		fd;
+
+	table = NULL;
+	fd = open(w1->path, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
+	table = maketable2(table, fd);
 	close(fd);
 	return (table);
 }
