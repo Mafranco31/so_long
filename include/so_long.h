@@ -6,14 +6,14 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:56:48 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/18 20:33:24 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:31:09 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "mlx.h"
+# include "../mlx/mlx.h"
 # include <stdio.h>
 # include <unistd.h>
 # include "../libft/libft.h"
