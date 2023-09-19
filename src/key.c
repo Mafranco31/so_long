@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:36 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/18 20:23:34 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/19 16:02:20 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,8 @@ int	end(t_data *w1, char *str, int i)
 	return (0);
 }
 
-static int	moovedog(t_data *w1, int dx, int dy, int x)
+static int	moovedog(t_data *w1, int x, int y)
 {
-	int	y;
-
-	x = w1->img.dogx + dx;
-	y = w1->img.dogy + dy;
 	if (w1->table[y][x] == '1')
 		return (0);
 	if (w1->table[y][x] == 'C')
@@ -56,6 +52,7 @@ static int	moovedog(t_data *w1, int dx, int dy, int x)
 		else
 			return (1);
 	}
+	mlx_put_image_to_window(w1->mlx, w1->win, w1->img.grass, x * 45, y * 45);
 	mlx_put_image_to_window(w1->mlx, w1->win,
 		w1->img.grass, w1->img.dogx * 45, w1->img.dogy * 45);
 	mlx_put_image_to_window(w1->mlx, w1->win, w1->img.dog, x * 45, y * 45);
@@ -79,16 +76,16 @@ int	presskey(int kcode, t_data *w1)
 	int	i;
 
 	i = 0;
-	if (kcode == 65307)
+	if (kcode == 53)
 		echappressed(w1);
-	if (kcode == 119)
-		i += moovedog(w1, 0, -1, 0);
-	else if (kcode == 97)
-		i += moovedog(w1, -1, 0, 0);
-	else if (kcode == 115)
-		i += moovedog(w1, 0, 1, 0);
-	else if (kcode == 100)
-		i += moovedog(w1, 1, 0, 0);
+	if (kcode == 13)
+		i += moovedog(w1, w1->img.dogx, w1->img.dogy - 1);
+	else if (kcode == 0)
+		i += moovedog(w1, w1->img.dogx - 1, w1->img.dogy);
+	else if (kcode == 1)
+		i += moovedog(w1, w1->img.dogx, w1->img.dogy + 1);
+	else if (kcode == 2)
+		i += moovedog(w1, w1->img.dogx + 1, w1->img.dogy);
 	else
 		ft_printf("PRESS W.A.S.D TO PLAY\n");
 	if (i == 1)

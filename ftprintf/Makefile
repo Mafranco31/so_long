@@ -6,52 +6,38 @@
 #    By: mafranco <mafranco@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/27 13:06:34 by mafranco          #+#    #+#              #
-#    Updated: 2023/07/25 12:17:52 by mafranco         ###   ########.fr        #
+#    Updated: 2023/09/19 15:28:09 by mafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	libftprintf.a
+LIB = ar rcs
+RM = rm -f
 
-LIB = ft_printf.h
+CC = gcc
+CCFLAGS = -Wall -Wextra -Werror
 
-SRC	=	ft_printf.c ft_pfptr.c ft_pfchar.c ft_pfint.c
-
-CC	=	cc
-
-CFLAGS	=	-Werror -Wall -Wextra -I.
-
-RM	=	rm -f
-
+NAME = libftprintf.a
+SRC = ft_pfint.c ft_printf.c ft_pfchar.c ft_pfptr.c
 OBJ = $(SRC:.c=.o)
+INCLUDE = ft_printf.h
 
-OBJ_DIR =	.obj
+all: $(NAME)
 
-GREEN	=	\033[1;32m
-YELLOW	=	\033[1;33m
-RESET	=	\033[0m
+$(NAME): $(OBJ) $(INCLUDE)
+	$(LIB) $(NAME) $(OBJ)
 
-all:	$(NAME)
+bonus: $(OBJ) $(BONUSOBJ) $(INCLUDE)
+	$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
 
-%.o: %.c $(LIB)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(NAME):: $(OBJ) $(LIB) $(OBJ_DIR)
-	@ar rcs $(NAME) $(OBJ)
-	@mv *.o $(OBJ_DIR)
-
-$(NAME)::
-	@echo "$(GREEN)ftprintf.a compiled$(RESET)"
-
-$(OBJ_DIR):
-	@mkdir -p $@
+%.o: %.c
+	$(CC) $(CCFLAGS) -c -o $@ $<
 
 clean:
-	@$(RM) -r $(OBJ_DIR)
-	@echo "$(YELLOW)objects of ftprintf removed$(RESET)"
+	$(RM) $(OBJ) $(BONUSOBJ)
 
 fclean: clean
-	@$(RM) $(NAME)
+	$(RM) $(NAME)
 
-re:	fclean all
+re: fclean all
 
 .PHONY: all clean fclean re

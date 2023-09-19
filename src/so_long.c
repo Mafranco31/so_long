@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:41 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/18 19:57:14 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:43:17 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static void	putimg2(t_data *w1, char c, int y, int x)
 {
-	if (c == '0')
-		mlx_put_image_to_window(w1->mlx, w1->win,
-			w1->img.grass, x * 45, y * 45);
+	mlx_put_image_to_window(w1->mlx, w1->win,
+		w1->img.grass, x * 45, y * 45);
 	if (c == '1')
 		mlx_put_image_to_window(w1->mlx, w1->win,
 			w1->img.fence, x * 45, y * 45);

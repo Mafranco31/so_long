@@ -6,30 +6,26 @@
 #    By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 15:02:38 by mafranco          #+#    #+#              #
-#    Updated: 2023/09/18 12:14:00 by mafranco         ###   ########.fr        #
+#    Updated: 2023/09/19 15:31:29 by mafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	so_long
 
-LIB	=	include/so_long.h
+LIBFT_PATH	=	libft/
+LIBPF_PATH	=	ftprintf/
 
-LIBMLX_PATH	=	./mlx/
-LIBFT_PATH	=	./libft/
-LIBPF_PATH	=	./ftprintf/
+LIBFT_LIB	=	$(LIBFT_PATH)libft.a
+LIBPF_LIB	=	$(LIBPF_PATH)libftprintf.a
 
-LIBFT	=	libft.a
-LIBPF	=	libftprintf.a
-LIBMLX	=	libmlx.a
+MLX_PATH = mlx/
 
-LIBFT_LIB	=	$(addprefix $(LIBFT_PATH), $(LIBFT))
-LIBPF_LIB	=	$(addprefix $(LIBPF_PATH), $(LIBPF))
-LIBMLX_LIB	=	$(addprefix $(LIBMLX_PATH), $(LIBMLX))
+MLX_LIB = $(MLX_PATH)libmlx.a
 
-SRC_DIR	=	src
-SRC	=	$(wildcard $(SRC_DIR)/*.c)
+MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-MLX_FLAG	=	-lmlx -lX11 -lXext
+SRC	=	src/checkpath.c src/checkmap.c src/init.c src/key.c src/so_long.c \
+		src/createmap.c
 
 MLX_EX	=	$(MLX_LIB) $(MLX_FLAG)
 
@@ -39,47 +35,35 @@ RM	=	rm -f
 
 CFLAGS	=	-Wall -Wextra -Werror -I.
 
-OBJ_DIR	=	.obj
 OBJ	=	$(SRC:.c=.o)
 
-GREEN	=	\033[1;32m
-YELLOW	=	\033[1;33m
-RESET	=	\033[0m
 
+all: makelib $(NAME)
 
 %.o:	%.c $(LIB)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -Imlx -c -o $@ $<
 
-all: $(NAME)
+makelib:
+	make -C $(MLX_PATH)
+	make -C $(LIBFT_PATH)
+	make -C $(LIBPF_PATH)
 
-mlx:
-	@make -C $(LIBMLX_PATH)
-
-lib:
-	@make -C $(LIBFT_PATH)
-
-$(NAME):: lib mlx $(OBJ) $(OBJ_DIR)
-
-	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAG) $(LIBFT_LIB) $(LIBPF_LIB) -o $(NAME)
-	@mv $(SRC_DIR)/*.o $(OBJ_DIR)
-
-$(NAME)::
-	@echo "$(GREEN)$(NAME) compiled!$(RESET)"
-
-$(OBJ_DIR):
-	@mkdir -p $@
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) $(LIBPF_LIB) -o $(NAME)
 
 clean:
-	@$(RM) -r $(OBJ_DIR)
-	@echo "$(YELLOW)objects of so_long removed$(RESET)"
+	make -C $(MLX_PATH) clean
+	make -C $(LIBFT_PATH) clean
+	make -C $(LIBPF_PATH) clean
+	rm -f $(OBJ)
 
 fclean:	clean
 	@$(RM) $(NAME)
-	make clean -C $(LIBFT_PATH)
-	make clean -C $(LIBMLX_PATH)
-	@echo "$(YELLOW)$(NAME) removed$(RESET)"
+	make -C $(MLX_PATH) fclean
+	make -C $(LIBFT_PATH) fclean
+	make -C $(LIBPF_PATH) flean
+	rm -f $(NAME)
 
 re:	fclean all
-	make fclean -C $(LIBFT_PATH)
 
 .PHONY: all clean fclean re

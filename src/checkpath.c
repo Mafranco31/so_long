@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:23 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/18 20:32:36 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:45:38 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ static void	searchdog(t_data *w1)
 				w1->img.dogy = y;
 				return ;
 			}
-		x++;
+			x++;
 		}
-	y++;
+		y++;
 	}
 }
 

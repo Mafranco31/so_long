@@ -6,7 +6,7 @@
 /*   By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:57:31 by mafranco          #+#    #+#             */
-/*   Updated: 2023/09/18 20:29:52 by mafranco         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:45:49 by mafranco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	freeall(char **table, int i)
 	{
 		free(table[i]);
 		i--;
-	}	
+	}
 	free(table);
 }
 
