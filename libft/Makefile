@@ -6,7 +6,7 @@
 #    By: mafranco <mafranco@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/05 17:45:19 by mafranco          #+#    #+#              #
-#    Updated: 2023/09/19 15:39:13 by mafranco         ###   ########.fr        #
+#    Updated: 2023/09/19 16:06:24 by mafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,19 +34,16 @@ CCFLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDE)
-	$(LIB) $(NAME) $(OBJ)
-
-bonus: $(OBJ) $(BONUSOBJ) $(INCLUDE)
-	$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
+	@$(LIB) $(NAME) $(OBJ)
 
 %.o: %.c
-	$(CC) $(CCFLAGS) -c -o $@ $<
+	@$(CC) $(CCFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) $(OBJ) $(BONUSOBJ)
+	@$(RM) $(OBJ) $(BONUSOBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

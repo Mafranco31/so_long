@@ -6,7 +6,7 @@
 #    By: mafranco <mafranco@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/27 13:06:34 by mafranco          #+#    #+#              #
-#    Updated: 2023/09/19 15:28:09 by mafranco         ###   ########.fr        #
+#    Updated: 2023/09/19 16:06:39 by mafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,19 +24,19 @@ INCLUDE = ft_printf.h
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDE)
-	$(LIB) $(NAME) $(OBJ)
+	@$(LIB) $(NAME) $(OBJ)
 
 bonus: $(OBJ) $(BONUSOBJ) $(INCLUDE)
-	$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
+	@$(LIB) $(NAME) $(BONUSOBJ) $(OBJ)
 
 %.o: %.c
-	$(CC) $(CCFLAGS) -c -o $@ $<
+	@$(CC) $(CCFLAGS) -c -o $@ $<
 
 clean:
-	$(RM) $(OBJ) $(BONUSOBJ)
+	@$(RM) $(OBJ) $(BONUSOBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

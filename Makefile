@@ -6,7 +6,7 @@
 #    By: mafranco <mafranco@student.barcelona.>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/11 15:02:38 by mafranco          #+#    #+#              #
-#    Updated: 2023/09/19 15:31:29 by mafranco         ###   ########.fr        #
+#    Updated: 2023/09/19 16:07:31 by mafranco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,25 +44,31 @@ all: makelib $(NAME)
 	@$(CC) $(CFLAGS) -Imlx -c -o $@ $<
 
 makelib:
-	make -C $(MLX_PATH)
-	make -C $(LIBFT_PATH)
-	make -C $(LIBPF_PATH)
+	@make -C $(MLX_PATH)
+	@make -C $(LIBFT_PATH)
+	@make -C $(LIBPF_PATH)
+	@echo "mlx, libft, libftprintf compiled"
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) $(LIBPF_LIB) -o $(NAME)
+	@echo "so_long created"
+
 
 clean:
-	make -C $(MLX_PATH) clean
-	make -C $(LIBFT_PATH) clean
-	make -C $(LIBPF_PATH) clean
-	rm -f $(OBJ)
+	@make -C $(MLX_PATH) clean
+	@make -C $(LIBFT_PATH) clean
+	@make -C $(LIBPF_PATH) clean
+	@rm -f $(OBJ)
+	@echo "objects removed"
+
 
 fclean:	clean
 	@$(RM) $(NAME)
-	make -C $(MLX_PATH) fclean
-	make -C $(LIBFT_PATH) fclean
-	make -C $(LIBPF_PATH) flean
-	rm -f $(NAME)
+	@make -C $(MLX_PATH) fclean
+	@make -C $(LIBFT_PATH) fclean
+	@make -C $(LIBPF_PATH) fclean
+	@rm -f $(NAME)
+	@echo "so_long removed"
 
 re:	fclean all
 
